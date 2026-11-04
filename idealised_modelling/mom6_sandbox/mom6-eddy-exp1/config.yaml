@@ -9,7 +9,7 @@ model: mom6
 exe: /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-ninja-nci/ocean_only_symmetric/MOM6
 input: /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-eddy-exp1/input
 laboratory: /scratch/fu5/rd7475/tmp/mom6-payu
-experiment_prefix: gaussian-eddy-exp-H500_BETA_2E11
+experiment_prefix: gaussian-eddy-exp-H500_BETA_2E11_CE
 
 modules:
     load:

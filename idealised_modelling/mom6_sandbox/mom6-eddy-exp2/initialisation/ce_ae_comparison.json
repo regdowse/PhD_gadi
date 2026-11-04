@@ -1,0 +1,15 @@
+{
+  "physical_configs_and_non_eddy_inputs_identical": true,
+  "surface_velocity_and_ssh_are_exact_sign_reversals": true,
+  "ce_rotation": "cyclonic",
+  "ae_rotation": "anticyclonic",
+  "ce_core_vorticity_s_1": -1.1548620052477165e-05,
+  "ae_core_vorticity_s_1": 1.1548620052477165e-05,
+  "ce_minimum_ssh_m": -0.15942595762368997,
+  "ae_maximum_ssh_m": 0.15942595762368997,
+  "ce_geostrophic_relative_rms": 0.009990827523370927,
+  "ae_geostrophic_relative_rms": 0.010067476982409977,
+  "ce_unstable_columns": 0,
+  "ae_unstable_columns": 0,
+  "note": "Layer depths include the signed SSH, so physical 3D face velocities and cell-average anomalies are re-evaluated on each case geometry, rather than blindly negating arrays."
+}

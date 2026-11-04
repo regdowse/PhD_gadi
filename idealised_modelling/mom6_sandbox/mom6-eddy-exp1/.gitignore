@@ -22,3 +22,6 @@
 /copied_work
 /mom6-eddy-exp1.o*
 /mom6-eddy-exp1.e*
+
+# Standalone animation exports saved beside the analysis notebook
+/analysis/*_eddy_animation.html

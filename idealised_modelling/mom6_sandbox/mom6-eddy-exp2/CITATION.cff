@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+title: 'ACCESS-iOM3-configs'
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Christopher Yit Sen 
+    family-names: Bull
+    email: chris.bull@anu.edu.au
+    affiliation: Australia's Climate Simulator (ACCESS-NRI), Australian National University, Canberra, Australia
+    orcid: 'https://orcid.org/0000-0001-8362-3446'
+  - given-names: Josef Istvan
+    family-names: Bisits
+    email: jbisits@gmail.com
+    affiliation: Biological Earth and Environmental Science, University of New South Wales, Sydney, Australia
+    orcid: 'https://orcid.org/0000-0001-8362-3446'
+  - given-names: Andrew McColl
+    family-names: Hogg
+    email: Andy.Hogg@anu.edu.au
+    affiliation: Australia's Climate Simulator (ACCESS-NRI), Australian National Universi\
+ty, Canberra, Australia
+    orcid: 'https://orcid.org/0000-0001-5898-7635"
+  - description: "https://orcid.org/0000-0002-6340-4470"
+    type: 
+    value: 
+repository-code: 'https://github.com/ACCESS-Community-Hub/access-iom3-configs'
+url: 'https://github.com/ACCESS-Community-Hub/access-iom3-configs'
+repository-artifact: >-
+abstract: >-
+license: CC-BY-4.0
+version: 
+date-released: 
+keywords:
+  - access-iom3
+  - model

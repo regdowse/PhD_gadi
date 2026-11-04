@@ -170,8 +170,10 @@ def build_state(cfg):
     grid, zi, p, versions = load_model(cfg)
     eddy, num, bg = cfg['eddy'], cfg['numerics'], cfg['background']
     require(eddy['centre'] == 'domain_midpoint' and eddy['aspect_ratio'] == 1
-            and eddy['vertical_tilt'] == 0 and eddy['rotation'] == 'cyclonic',
-            'Only the agreed circular, untilted, cyclonic midpoint eddy is implemented.')
+            and eddy['vertical_tilt'] == 0,
+            'Only the agreed circular, untilted midpoint eddy is implemented.')
+    require(eddy['rotation'] in ('cyclonic', 'anticyclonic'),
+            'rotation must be cyclonic or anticyclonic.')
     require(num['geometry'] == 'clipped_zstar' and num['depth_reference'] == 'local_free_surface',
             'Unsupported geometry/depth convention.')
     require(num['coriolis_strategy'] == 'centre_f_approximation', 'Unsupported Coriolis strategy.')
@@ -185,10 +187,11 @@ def build_state(cfg):
     cx = p['WESTLON'] + p['LENLON']/2
     cy = p['SOUTHLAT'] + p['LENLAT']/2
     f = p['F_0'] + p['BETA']*(cy-p['BETA_LAT_REF'])
-    require(f != 0, 'Cyclonic sign/geostrophic initialization is undefined at f=0.')
+    require(f != 0, 'Rotation sign/geostrophic initialization is undefined at f=0.')
     require(np.all(grid.Coriolis.values*f > 0), 'Coriolis changes sign across this domain.')
     rc = np.sqrt(2)*eddy['maximum_speed_radius_m']
-    psi0 = -np.sign(f)*eddy['surface_speed_m_s']*rc*np.exp(0.5)/np.sqrt(2)
+    rotation_sign = -1 if eddy['rotation'] == 'cyclonic' else 1
+    psi0 = rotation_sign*np.sign(f)*eddy['surface_speed_m_s']*rc*np.exp(0.5)/np.sqrt(2)
     e_depth = eddy['e_folding_depth_m']
     x, y, xq, yq = [grid[name].values for name in ('xh', 'yh', 'xq', 'yq')]
     X, Y = np.meshgrid(x, y)
@@ -267,7 +270,8 @@ def build_state(cfg):
         'depth_u': (('zl','yh','xq'), du, {'units':'m', 'positive':'down'}),
         'depth_v': (('zl','yq','xh'), dv, {'units':'m', 'positive':'down'}),
     }, coords=coords, attrs={
-        'title':'Gaussian cyclonic eddy initial conditions for MOM6',
+        'title':f"Gaussian {eddy['rotation']} eddy initial conditions for MOM6",
+        'rotation':eddy['rotation'],
         'MOM6_source_commit':versions['MOM6'], 'build_versions':json.dumps(versions),
         'configuration_yaml':cfg['_yaml'],
         'grid_source':str(cfg['paths']['grid']), 'vertical_source':str(cfg['paths']['vertical_grid']),
@@ -362,7 +366,12 @@ def validate_state(ds, cfg):
     j, i = np.unravel_index(np.argmax(speed), speed.shape)
     zeta = np.gradient(vs, dx, axis=1)-np.gradient(us, dy, axis=0)
     core = radius < a['maximum_speed_radius_m']/2
-    require(float(np.mean(zeta[core]))*a['reference_f_s_1'] > 0, 'Eddy rotation is not cyclonic.')
+    rotation = cfg['eddy']['rotation']
+    require(a.get('rotation', rotation) == rotation, 'Saved rotation differs from configuration.')
+    vorticity_alignment = float(np.mean(zeta[core]))*a['reference_f_s_1']
+    expected_alignment = 1 if rotation == 'cyclonic' else -1
+    require(expected_alignment*vorticity_alignment > 0,
+            f'Eddy rotation is not {rotation}.')
     require(abs(speed[j,i]-a['target_speed_m_s']) < 0.02*a['target_speed_m_s'], 'Peak speed outside 2% grid-sampling tolerance.')
     require(abs(radius[j,i]-a['maximum_speed_radius_m']) <= 2*max(dx,dy), 'Peak radius outside grid-sampling tolerance.')
     phi_expected = a['reference_f_s_1']*gaussian(ds.xh.values[None,:], ds.yh.values[:,None],
@@ -370,6 +379,7 @@ def validate_state(ds, cfg):
     hydro_error = float(np.max(np.abs((phi_interface-phi_expected)[:,wet])))
     report = {
         'dimensions':dict(ds.sizes), 'psi0_m2_s':a['psi0_m2_s'],
+        'rotation':rotation, 'core_vorticity_s_1':float(np.mean(zeta[core])),
         'reference_f_s_1':a['reference_f_s_1'], 'minimum_thickness_m':float(h[:,wet].min()),
         'surface_error_m':float(np.max(np.abs(eta[0]-ds.ssh.values))),
         'bottom_error_m':float(np.max(np.abs(eta[-1,wet]+ds.depth.values[wet]))),

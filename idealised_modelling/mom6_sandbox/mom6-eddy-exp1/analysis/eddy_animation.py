@@ -86,15 +86,20 @@ def prepare_velocity_panels(velocity, static, frame_stride=1):
     return {
         'speed': speed.values, 'v_section': v_section.values, 'u_section': u_section.values,
         'time': velocity.time.values[frames], 'xq': xq, 'yq': yq,
-        'xh': xh, 'yh': yh, 'z_i': velocity.z_i.values,
+        'xh': xh, 'yh': yh, 'z_i': velocity.z_i.values, 'z_l': velocity.z_l.values,
         'depth_zonal': depth_zonal.values, 'depth_meridional': depth_meridional.values,
         'centre_x': cx, 'centre_y': cy, 'surface_depth': float(velocity.z_l[0]),
         'record_count': len(frames),
     }
 
 
-def create_velocity_animation(panels, experiment_name='', interval_ms=250, maximum_depth_m=4000):
-    """Create a fixed-scale 1x3 animation and return (figure, animation)."""
+def create_velocity_animation(panels, experiment_name='', interval_ms=250, maximum_depth_m=4000,
+                              show_zero_contours=False):
+    """Create a fixed-scale 1x3 animation and return (figure, animation).
+
+    show_zero_contours overlays black 0 m/s contours on both signed sections.
+    No contour is drawn where a frame has no positive/negative flow transition.
+    """
     if interval_ms <= 0 or maximum_depth_m <= 0:
         raise ValueError('Frame interval and maximum depth must be positive.')
     speed_max = max(float(np.nanmax(panels['speed'])), 1e-12)
@@ -134,10 +139,36 @@ def create_velocity_animation(panels, experiment_name='', interval_ms=250, maxim
     title = fig.suptitle('')
     meshes = [map_mesh, zonal_mesh, meridional_mesh]
     fields = [panels['speed'], panels['v_section'], panels['u_section']]
+    zero_contours = []
+    if show_zero_contours:
+        for ax in axes[1:]:
+            ax.plot([], [], color='black', linewidth=1, label='0 m/s')
+            ax.legend(loc='lower right', fontsize=8)
+
+    def update_zero_contours(frame):
+        # Remove previous contour artists so playback/repeats cannot accumulate lines.
+        for contour in zero_contours:
+            if hasattr(contour, 'remove'):
+                contour.remove()
+            else:
+                for artist in contour.collections:
+                    artist.remove()
+        zero_contours.clear()
+        for ax, horizontal, field in [(axes[1], panels['xh'], panels['v_section']),
+                                      (axes[2], panels['yh'], panels['u_section'])]:
+            values = np.ma.masked_invalid(field[frame])
+            finite = values.compressed()
+            if finite.size and finite.min() < 0 < finite.max():
+                zero_contours.append(ax.contour(
+                    horizontal, panels['z_l'], values, levels=[0.0],
+                    colors='black', linewidths=1, corner_mask=False, zorder=2,
+                ))
 
     def update(frame):
         for mesh, field in zip(meshes, fields):
             mesh.set_array(np.ma.masked_invalid(field[frame]).ravel())
+        if show_zero_contours:
+            update_zero_contours(frame)
         title.set_text(f"{experiment_name} | daily mean time: {panels['time'][frame]} "
                        f"| frame {frame+1}/{panels['record_count']}")
         return (*meshes, title)

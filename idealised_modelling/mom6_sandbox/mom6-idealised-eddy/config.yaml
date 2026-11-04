@@ -1,0 +1,31 @@
+# One-day first run; restore months = 12 in input.nml for annual segments.
+ncpus: 100
+walltime: 00:30:00
+jobname: anu-tub
+project: fu5
+queue: normal
+
+model: mom6
+exe: /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-ninja-nci/ocean_only_symmetric/MOM6
+input: /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-idealised-eddy/input
+laboratory: /scratch/fu5/rd7475/tmp/mom6-payu
+
+modules:
+    load:
+        - python3/3.11.7
+        - intel-compiler/2021.10.0
+        - netcdf/4.9.2
+
+storage:
+    gdata:
+        - fu5
+    scratch:
+        - fu5
+
+collate: false
+mpi:
+    module: openmpi/4.1.2
+qsub_flags: -W umask=027
+restart_freq: 1
+# Keep setup/run from automatically committing your notebook and configuration.
+runlog: false

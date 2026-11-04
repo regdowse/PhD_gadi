@@ -1,0 +1,23 @@
+format: yamanifest
+version: 1.0
+---
+work/INPUT/forcing.nc:
+  fullpath: /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-idealised-eddy/input/forcing.nc
+  hashes:
+    binhash: c8be5c8661edf8e3462b54fd6606687a
+    md5: 3393e071cdcbe1eff179d400b14e8abf
+work/INPUT/mom6-anu-tub-driver.ipynb:
+  fullpath: /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-idealised-eddy/input/mom6-anu-tub-driver.ipynb
+  hashes:
+    binhash: 2e02c2cf957bb727e06feff173d9fa8a
+    md5: d179fabd9b685a86a342a1f01760ddd2
+work/INPUT/sst.nc:
+  fullpath: /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-idealised-eddy/input/sst.nc
+  hashes:
+    binhash: 94b6c4c94de736cbaec6733a733a2b28
+    md5: 24094cea29d56529137ccdcd71e56f04
+work/INPUT/topog.nc:
+  fullpath: /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-idealised-eddy/input/topog.nc
+  hashes:
+    binhash: fd5df7ff175722601fe933e1fd5c2ca6
+    md5: f2a83784a949fddb2679346ae8a19f7b

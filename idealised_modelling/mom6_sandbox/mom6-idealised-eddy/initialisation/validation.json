@@ -1,0 +1,32 @@
+{
+  "dimensions": {
+    "zl": 100,
+    "yh": 100,
+    "xh": 100,
+    "xq": 101,
+    "yq": 101,
+    "zi": 101
+  },
+  "psi0_m2_s": 16487.212707001283,
+  "reference_f_s_1": -0.0001,
+  "minimum_thickness_m": 1.0099997780343983e-06,
+  "surface_error_m": 0.0,
+  "bottom_error_m": 0.0,
+  "peak_surface_speed_m_s": 0.19985930017521625,
+  "peak_surface_radius_m": 49623.58310319802,
+  "top_layer_peak_speed_m_s": 0.19945999127931782,
+  "vertical_profile": "exponential",
+  "e_folding_depth_m": 500.0,
+  "exponential_decay_max_error_m_s": 0.0,
+  "speed_fraction_at_e_folding_depth": 0.36787944117144233,
+  "max_speed_deeper_than_e_folding_depth_m_s": 0.06903566250747385,
+  "unstable_vertical_pairs": 0,
+  "unstable_columns": 0,
+  "minimum_density_increment_kg_m3": 0.001527423597735833,
+  "minimum_N2_s_2": 4.116948751148176e-07,
+  "geostrophic_interior_rms_m_s2": 2.917604557639718e-08,
+  "geostrophic_interior_relative_rms": 0.002565370616375552,
+  "hydrostatic_column_max_error_m2_s2": 1.0427856494965582e-15,
+  "fractional_f_variation": 0.0,
+  "Rossby_number_U_over_fR": 0.04
+}

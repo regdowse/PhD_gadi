@@ -131,10 +131,12 @@ GRID_CONFIG = "cartesian"       !
                                 !     cartesian - use a (flat) Cartesian grid.
                                 !     spherical - use a simple spherical grid.
                                 !     mercator - use a Mercator spherical grid.
+AXIS_UNITS = "m"
 ISOTROPIC = True ! isotropic grid
-SOUTHLAT = -30.000
-LENLAT = 5
-LENLON = 5
+WESTLON = 0.0
+SOUTHLAT = 0.0
+LENLAT = 500000.0
+LENLON = 500000.0
 TOPO_CONFIG = "file"            !
                                 ! This specifies how bathymetry is specified:
                                 !     file - read bathymetric information from the file
@@ -165,7 +167,9 @@ TOPO_FILE = "topog.nc"         ! default = "topog.nc"
 TOPO_VARNAME = "topog"
 MAXIMUM_DEPTH = 4000.0          !   [m]
                                 ! The maximum depth of the ocean.
-
+ROTATION = "betaplane"
+F_0 = -1.0E-4
+BETA = 0.0
 ! === module MOM_coord_initialization ===
 COORD_CONFIG = "linear"           !
                                 ! This specifies how layers are to be defined:
@@ -252,13 +256,24 @@ REMAPPING_SCHEME = "PPM_H4"     ! default = "PLM"
                                 ! PPM_IH4     (3rd-order accurate)
                                 ! PQM_IH4IH3  (4th-order accurate)
                                 ! PQM_IH6IH5  (5th-order accurate)
-THICKNESS_CONFIG = "coord"
+THICKNESS_CONFIG = "file"
+THICKNESS_FILE = "initial_state.nc"
+INTERFACE_IC_VAR = "eta"
+ADJUST_THICKNESS = False ! Generator already fits the local bathymetry; eta includes SSH.
 
 ! === module MOM_grid ===
 ! Parameters providing information about the lateral grid.
 
 ! === module MOM_state_initialization ===
-TS_CONFIG = "linear"
+TS_CONFIG = "file"
+TS_FILE = "initial_state.nc"
+TEMP_IC_VAR = "temp"
+SALT_IC_VAR = "salt"
+VELOCITY_CONFIG = "file"
+VELOCITY_FILE = "initial_state.nc"
+U_IC_VAR = "u"
+V_IC_VAR = "v"
+DEPRESS_INITIAL_SURFACE = False ! Do not add SSH a second time.
 T_REF = 20.0
 S_REF = 35.0
 T_TOP = 10

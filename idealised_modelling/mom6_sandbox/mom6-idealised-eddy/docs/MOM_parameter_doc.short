@@ -53,12 +53,17 @@ GRID_CONFIG = "cartesian"       !
                                 !     cartesian - use a (flat) Cartesian grid.
                                 !     spherical - use a simple spherical grid.
                                 !     mercator - use a Mercator spherical grid.
-SOUTHLAT = -30.0                !   [degrees]
+AXIS_UNITS = "m"                ! default = "degrees"
+                                ! The units for the Cartesian axes. Valid entries are:
+                                !     degrees - degrees of latitude and longitude
+                                !     m or meter(s) - meters
+                                !     k or km or kilometer(s) - kilometers
+SOUTHLAT = 0.0                  !   [m]
                                 ! The southern latitude of the domain or the equivalent starting value for the
                                 ! y-axis.
-LENLAT = 5.0                    !   [degrees]
+LENLAT = 5.0E+05                !   [m]
                                 ! The latitudinal or y-direction length of the domain.
-LENLON = 5.0                    !   [degrees]
+LENLON = 5.0E+05                !   [m]
                                 ! The longitudinal or x-direction length of the domain.
 TOPO_CONFIG = "file"            !
                                 ! This specifies how bathymetry is specified:
@@ -97,6 +102,14 @@ MAXIMUM_DEPTH = 4000.0          !   [m]
 ! if any.
 
 ! === module MOM_fixed_initialization ===
+ROTATION = "betaplane"          ! default = "2omegasinlat"
+                                ! This specifies how the Coriolis parameter is specified:
+                                !     2omegasinlat - Use twice the planetary rotation rate
+                                !       times the sine of latitude.
+                                !     betaplane - Use a beta-plane or f-plane.
+                                !     USER - call a user modified routine.
+F_0 = -1.0E-04                  !   [s-1] default = 0.0
+                                ! The reference value of the Coriolis parameter with the betaplane option.
 
 ! === module MOM_verticalGrid ===
 ! Parameters providing information about the vertical grid.
@@ -210,7 +223,7 @@ REMAPPING_SCHEME = "PPM_H4"     ! default = "PLM"
 ! === module MOM_state_initialization ===
 INPUTDIR = "INPUT"              ! default = "."
                                 ! The directory in which input files are found.
-THICKNESS_CONFIG = "coord"      ! default = "uniform"
+THICKNESS_CONFIG = "file"       ! default = "uniform"
                                 ! A string that determines how the initial layer thicknesses are specified for a
                                 ! new run:
                                 !     file - read interface heights from the file specified
@@ -241,7 +254,9 @@ THICKNESS_CONFIG = "coord"      ! default = "uniform"
                                 !     soliton - Equatorial Rossby soliton.
                                 !     rossby_front - a mixed layer front in thermal wind balance.
                                 !     USER - call a user modified routine.
-TS_CONFIG = "linear"            !
+THICKNESS_FILE = "initial_state.nc" !
+                                ! The name of the thickness file.
+TS_CONFIG = "file"              !
                                 ! A string that determines how the initial temperatures and salinities are
                                 ! specified for a new run:
                                 !     file - read velocities from the file specified
@@ -261,14 +276,25 @@ TS_CONFIG = "linear"            !
                                 !     rossby_front - a mixed layer front in thermal wind balance.
                                 !     SCM_CVMix_tests - used in the SCM CVMix tests.
                                 !     USER - call a user modified routine.
-T_TOP = 10.0                    !   [degC]
-                                ! Initial temperature of the top surface.
-T_RANGE = 5.0                   !   [degC]
-                                ! Initial temperature difference (top-bottom).
-S_TOP = 35.0                    !   [ppt]
-                                ! Initial salinity of the top surface.
-S_RANGE = 0.0                   !   [ppt]
-                                ! Initial salinity difference (top-bottom).
+TS_FILE = "initial_state.nc"    !
+                                ! The initial condition file for temperature.
+TEMP_IC_VAR = "temp"            ! default = "PTEMP"
+                                ! The initial condition variable for potential temperature.
+SALT_IC_VAR = "salt"            ! default = "SALT"
+                                ! The initial condition variable for salinity.
+VELOCITY_CONFIG = "file"        ! default = "zero"
+                                ! A string that determines how the initial velocities are specified for a new
+                                ! run:
+                                !     file - read velocities from the file specified
+                                !       by (VELOCITY_FILE).
+                                !     zero - the fluid is initially at rest.
+                                !     uniform - the flow is uniform (determined by
+                                !       parameters INITIAL_U_CONST and INITIAL_V_CONST).
+                                !     rossby_front - a mixed layer front in thermal wind balance.
+                                !     soliton - Equatorial Rossby soliton.
+                                !     USER - call a user modified routine.
+VELOCITY_FILE = "initial_state.nc" !
+                                ! The name of the velocity initial condition file.
 
 ! === module MOM_diag_mediator ===
 NUM_DIAG_COORDS = 2             ! default = 1

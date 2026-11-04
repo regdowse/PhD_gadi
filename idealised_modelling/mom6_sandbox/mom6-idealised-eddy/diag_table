@@ -55,8 +55,14 @@
  "ocean_model",   "zos",          "zos",              "ocean_month",         "all", "mean", "none",2
  "ocean_model",   "zos",          "zos",              "ocean_daily",         "all", "mean", "none",2
 
- "ocean_model_z", "thetao",       "thetao",           "ocean_daily",       "all", "mean", "none",2  # if use pre-TEOS10
- "ocean_model", "thetao",       "thetao",           "ocean_daily",       "all", "mean", "none",2  # if use pre-TEOS10
+ # Daily mean 3-D potential temperature on fixed depth levels (z_l), in degC.
+ # Keep one thetao output per file; native-layer thetao would need a different output name.
+# Output file: one record per day
+"ocean_daily", 1, "days", 1, "days", "time"
+
+# Daily mean temperature and its required cell-volume diagnostic on z levels
+"ocean_model_z", "thetao",   "thetao",   "ocean_daily", "all", "mean", "none", 2
+"ocean_model_z", "volcello", "volcello", "ocean_daily", "all", "mean", "none", 2
  "ocean_model",   "tos",          "tos",              "ocean_daily",         "all", "mean", "none",2
  "ocean_model",   "tob",          "tob",              "ocean_month",         "all", "mean", "none",2
 

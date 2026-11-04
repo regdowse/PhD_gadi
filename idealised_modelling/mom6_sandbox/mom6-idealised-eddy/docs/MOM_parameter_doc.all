@@ -242,20 +242,20 @@ GRID_CONFIG = "cartesian"       !
                                 !     cartesian - use a (flat) Cartesian grid.
                                 !     spherical - use a simple spherical grid.
                                 !     mercator - use a Mercator spherical grid.
-AXIS_UNITS = "degrees"          ! default = "degrees"
+AXIS_UNITS = "m"                ! default = "degrees"
                                 ! The units for the Cartesian axes. Valid entries are:
                                 !     degrees - degrees of latitude and longitude
                                 !     m or meter(s) - meters
                                 !     k or km or kilometer(s) - kilometers
-SOUTHLAT = -30.0                !   [degrees]
+SOUTHLAT = 0.0                  !   [m]
                                 ! The southern latitude of the domain or the equivalent starting value for the
                                 ! y-axis.
-LENLAT = 5.0                    !   [degrees]
+LENLAT = 5.0E+05                !   [m]
                                 ! The latitudinal or y-direction length of the domain.
-WESTLON = 0.0                   !   [degrees] default = 0.0
+WESTLON = 0.0                   !   [m] default = 0.0
                                 ! The western longitude of the domain or the equivalent starting value for the
                                 ! x-axis.
-LENLON = 5.0                    !   [degrees]
+LENLON = 5.0E+05                !   [m]
                                 ! The longitudinal or x-direction length of the domain.
 RAD_EARTH = 6.378E+06           !   [m] default = 6.378E+06
                                 ! The radius of the Earth.
@@ -328,14 +328,18 @@ CHANNEL_CONFIG = "none"         ! default = "none"
                                 !       NetCDF file on the model grid.
 SUBGRID_TOPO_AT_VEL = False     !   [Boolean] default = False
                                 ! If true, use variables from TOPO_AT_VEL_FILE as parameters for porous barrier.
-ROTATION = "2omegasinlat"       ! default = "2omegasinlat"
+ROTATION = "betaplane"          ! default = "2omegasinlat"
                                 ! This specifies how the Coriolis parameter is specified:
                                 !     2omegasinlat - Use twice the planetary rotation rate
                                 !       times the sine of latitude.
                                 !     betaplane - Use a beta-plane or f-plane.
                                 !     USER - call a user modified routine.
-OMEGA = 7.2921E-05              !   [s-1] default = 7.2921E-05
-                                ! The rotation rate of the earth.
+F_0 = -1.0E-04                  !   [s-1] default = 0.0
+                                ! The reference value of the Coriolis parameter with the betaplane option.
+BETA = 0.0                      !   [m-1 s-1] default = 0.0
+                                ! The northward gradient of the Coriolis parameter with the betaplane option.
+BETA_LAT_REF = 0.0              !   [meters] default = 0.0
+                                ! The reference latitude (origin) of the beta-plane
 GRID_ROTATION_ANGLE_BUGS = False !   [Boolean] default = False
                                 ! If true, use an older algorithm to calculate the sine and cosines needed
                                 ! rotate between grid-oriented directions and true north and east.  Differences
@@ -651,7 +655,7 @@ FATAL_INCONSISTENT_RESTART_TIME = False !   [Boolean] default = False
 INIT_LAYERS_FROM_Z_FILE = False !   [Boolean] default = False
                                 ! If true, initialize the layer thicknesses, temperatures, and salinities from a
                                 ! Z-space file on a latitude-longitude grid.
-THICKNESS_CONFIG = "coord"      ! default = "uniform"
+THICKNESS_CONFIG = "file"       ! default = "uniform"
                                 ! A string that determines how the initial layer thicknesses are specified for a
                                 ! new run:
                                 !     file - read interface heights from the file specified
@@ -682,7 +686,21 @@ THICKNESS_CONFIG = "coord"      ! default = "uniform"
                                 !     soliton - Equatorial Rossby soliton.
                                 !     rossby_front - a mixed layer front in thermal wind balance.
                                 !     USER - call a user modified routine.
-TS_CONFIG = "linear"            !
+THICKNESS_FILE = "initial_state.nc" !
+                                ! The name of the thickness file.
+ADJUST_THICKNESS = False        !   [Boolean] default = False
+                                ! If true, all mass below the bottom removed if the topography is shallower than
+                                ! the thickness input file would indicate.
+DZ_BOTTOM_TOLERANCE = 1.0       !   [m] default = 1.0
+                                ! A tolerance for detecting inconsistent topography and input layer thicknesses
+                                ! when ADJUST_THICKNESS is false.
+INTERFACE_IC_VAR = "eta"        ! default = "eta"
+                                ! The variable name for initial conditions for interface heights relative to
+                                ! mean sea level, positive upward unless otherwise rescaled.
+INTERFACE_IC_RESCALE = 1.0      !   [various] default = 1.0
+                                ! A factor by which to rescale the initial interface heights to convert them to
+                                ! units of m or correct sign conventions to positive upward.
+TS_CONFIG = "file"              !
                                 ! A string that determines how the initial temperatures and salinities are
                                 ! specified for a new run:
                                 !     file - read velocities from the file specified
@@ -702,14 +720,14 @@ TS_CONFIG = "linear"            !
                                 !     rossby_front - a mixed layer front in thermal wind balance.
                                 !     SCM_CVMix_tests - used in the SCM CVMix tests.
                                 !     USER - call a user modified routine.
-T_TOP = 10.0                    !   [degC]
-                                ! Initial temperature of the top surface.
-T_RANGE = 5.0                   !   [degC]
-                                ! Initial temperature difference (top-bottom).
-S_TOP = 35.0                    !   [ppt]
-                                ! Initial salinity of the top surface.
-S_RANGE = 0.0                   !   [ppt]
-                                ! Initial salinity difference (top-bottom).
+TS_FILE = "initial_state.nc"    !
+                                ! The initial condition file for temperature.
+TEMP_IC_VAR = "temp"            ! default = "PTEMP"
+                                ! The initial condition variable for potential temperature.
+SALT_IC_VAR = "salt"            ! default = "SALT"
+                                ! The initial condition variable for salinity.
+SALT_FILE = "initial_state.nc"  ! default = "initial_state.nc"
+                                ! The initial condition file for salinity.
 DEPRESS_INITIAL_SURFACE = False !   [Boolean] default = False
                                 ! If true,  depress the initial surface to avoid huge tsunamis when a large
                                 ! surface pressure is applied.
@@ -721,7 +739,7 @@ REGRID_ACCELERATE_INIT = False  !   [Boolean] default = False
                                 ! If true, runs REGRID_ACCELERATE_ITERATIONS iterations of the regridding
                                 ! algorithm to push the initial grid to be consistent with the initial
                                 ! condition. Useful only for state-based and iterative coordinates.
-VELOCITY_CONFIG = "zero"        ! default = "zero"
+VELOCITY_CONFIG = "file"        ! default = "zero"
                                 ! A string that determines how the initial velocities are specified for a new
                                 ! run:
                                 !     file - read velocities from the file specified
@@ -732,6 +750,12 @@ VELOCITY_CONFIG = "zero"        ! default = "zero"
                                 !     rossby_front - a mixed layer front in thermal wind balance.
                                 !     soliton - Equatorial Rossby soliton.
                                 !     USER - call a user modified routine.
+VELOCITY_FILE = "initial_state.nc" !
+                                ! The name of the velocity initial condition file.
+U_IC_VAR = "u"                  ! default = "u"
+                                ! The initial condition variable for zonal velocity in VELOCITY_FILE.
+V_IC_VAR = "v"                  ! default = "v"
+                                ! The initial condition variable for meridional velocity in VELOCITY_FILE.
 ODA_INCUPD = False              !   [Boolean] default = False
                                 ! If true, oda incremental updates will be applied everywhere in the domain.
 SPONGE = False                  !   [Boolean] default = False
@@ -1012,6 +1036,8 @@ LINEAR_DRAG = False             !   [Boolean] default = False
 DYNAMIC_VISCOUS_ML = False      !   [Boolean] default = False
                                 ! If true, use a bulk Richardson number criterion to determine the mixed layer
                                 ! thickness for viscosity.
+OMEGA = 7.2921E-05              !   [s-1] default = 7.2921E-05
+                                ! The rotation rate of the earth.
 HBBL = 10.0                     !   [m]
                                 ! The thickness of a bottom boundary layer with a viscosity increased by
                                 ! KV_EXTRA_BBL if BOTTOMDRAGLAW is not defined, or the thickness over which

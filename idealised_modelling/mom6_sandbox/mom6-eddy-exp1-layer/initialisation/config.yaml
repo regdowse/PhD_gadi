@@ -1,0 +1,32 @@
+# Paths resolve relative to this file, not the shell working directory.
+paths:
+  model_directory: ..
+  grid: reference/ocean_static.nc
+  vertical_grid: reference/Vertical_coordinate.nc
+  topography: ../input/topog.nc
+  output: ../input/initial_state.nc
+eddy:
+  centre: domain_midpoint  # midpoint of physical cell-edge domain, m
+  aspect_ratio: 1.0
+  vertical_tilt: 0.0      # m displacement per m depth; only zero supported
+  rotation: cyclonic     # sign(psi0) = -sign(f)
+  maximum_speed_radius_m: 50000.0  # 100 km maximum-speed diameter, not cutoff
+  surface_speed_m_s: 0.20
+  vertical_profile: exponential  # smooth at every depth; no finite cutoff
+  e_folding_depth_m: 500.0       # user setting: speed is surface speed / e at this depth
+background:
+  # Five 100 m layers above 500 m; five 700 m layers below.
+  # Temperatures are fixed on material layers, including within the eddy.
+  profile: isopycnal
+  interface_depths_m: [0, 100, 200, 300, 400, 500, 1200, 1900, 2600, 3300, 4000]
+  layer_temperatures_degC: [24, 22, 20, 18, 16, 14, 12, 10, 8, 6]
+  salinity_top_ppt: 35.0
+  salinity_range_ppt: 0.0
+numerics:
+  coriolis_strategy: centre_f_approximation  # exact constant-f relation; approximate if beta != 0
+  depth_reference: local_free_surface       # positive-down depth below eta[0]
+  geometry: isopycnal                       # thermal-wind interface displacement
+  minimum_layer_m: 1.01e-6                  # > model MIN_THICKNESS=1e-6; includes collapsed bottom layers
+  stability_tolerance_kg_m3: 1.0e-9
+  instability_action: warn                 # report instability without changing the requested profile
+  compression_level: 2

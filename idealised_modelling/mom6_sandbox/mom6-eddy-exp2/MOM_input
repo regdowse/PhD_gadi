@@ -91,7 +91,7 @@ NJPROC = 10
 
 ! === module MOM_verticalGrid ===
 ! Parameters providing information about the vertical grid.
-NK = 100                         !   [nondim]
+NK = 100                         !   [nondim] <-
                                 ! The number of model layers.
 
 ! === module MOM_tracer_registry ===
@@ -185,7 +185,7 @@ COORD_CONFIG = "linear"           !
                                 !       and GINT calculate internal densities.
                                 !     gprime - use reference density (RHO_0) for surface
                                 !       density and GINT calculate internal densities.
-                                !     ts_profile - use temperature and salinity profiles
+                                !     ts_profile - use temperature and salinity profiles <-
                                 !       (read from COORD_FILE) to set layer densities.
                                 !     USER - call a user modified routine.
 COORD_FILE = "layer_coord.nc"   !

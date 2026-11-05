@@ -8,6 +8,8 @@
     "zi": 101
   },
   "psi0_m2_s": 16487.212707001283,
+  "rotation": "cyclonic",
+  "core_vorticity_s_1": -1.1548620052477165e-05,
   "reference_f_s_1": -9.5e-05,
   "minimum_thickness_m": 1.0099997780343983e-06,
   "surface_error_m": 0.0,

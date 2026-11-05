@@ -751,7 +751,7 @@ VARIABLE_WINDS = False
 SAVE_INITIAL_CONDS = True
 READ_DEPTH_LIST = True ! read/write depth list for APE calc
 
-NUM_DIAG_COORDS = 2
+NUM_DIAG_COORDS = 2    ! these lines to alter output to higher res
 DIAG_COORDS = "z Z ZSTAR", "rho2 RHO2 RHO"
 DIAG_COORD_DEF_Z = "FNC1:2,4000,4.5,.01"
 DIAG_COORD_DEF_RHO2 = "RFNC1:35,999.5,1028,1028.5,8.,1038.,0.0078125"

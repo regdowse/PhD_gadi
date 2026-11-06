@@ -238,14 +238,7 @@ VELOCITY_FILE = "initial_state.nc" !
                                 ! The name of the velocity initial condition file.
 
 ! === module MOM_diag_mediator ===
-NUM_DIAG_COORDS = 2             ! default = 1
-                                ! The number of diagnostic vertical coordinates to use. For each coordinate, an
-                                ! entry in DIAG_COORDS must be provided.
-DIAG_COORDS = "z Z ZSTAR", "rho2 RHO2 RHO" !
-                                ! A list of string tuples associating diag_table modules to a coordinate
-                                ! definition used for diagnostics. Each string is of the form
-                                ! "MODULE_SUFFIX,PARAMETER_SUFFIX,COORDINATE_NAME".
-DIAG_COORD_DEF_Z = "FNC1:2,4000,4.5,.01" ! default = "WOA09"
+DIAG_COORD_DEF_Z = "PARAM"      ! default = "WOA09"
                                 ! Determines how to specify the coordinate resolution. Valid options are:
                                 !  PARAM       - use the vector-parameter DIAG_COORD_RES_Z
                                 !  UNIFORM[:N] - uniformly distributed
@@ -276,37 +269,12 @@ DIAG_COORD_DEF_Z = "FNC1:2,4000,4.5,.01" ! default = "WOA09"
                                 !                the weighted sum of profiles I and I+1.
                                 !                Dz can be FNC1:string which is used everywhere.
                                 !                e.g. HYBRID_MAP:vgrid.nc,map,sigma2,dz
-DIAG_COORD_DEF_RHO2 = "RFNC1:35,999.5,1028,1028.5,8.,1038.,0.0078125" ! default = "WOA09"
-                                ! Determines how to specify the coordinate resolution. Valid options are:
-                                !  PARAM       - use the vector-parameter DIAG_COORD_RES_RHO2
-                                !  UNIFORM[:N] - uniformly distributed
-                                !  FILE:string - read from a file. The string specifies
-                                !                the filename and variable name, separated
-                                !                by a comma or space, e.g. FILE:lev.nc,dz
-                                !                or FILE:lev.nc,interfaces=zw
-                                !  WOA09[:N]   - the WOA09 vertical grid (approximately)
-                                !  WOA09INT[:N] - layers spanned by the WOA09 depths
-                                !  WOA23INT[:N] - layers spanned by the WOA23 depths
-                                !  FNC1:string - FNC1:dz_min,H_total,power,precision
-                                !  HYBRID:string - read from a file. The string specifies
-                                !                the filename and two variable names, separated
-                                !                by a comma or space, for sigma-2 and dz.
-                                !                e.g. HYBRID:vgrid.nc,sigma2,dz
-                                !  HYBRID_3D:string - read from a file. The string specifies
-                                !                the filename and two 3D variable names, separated
-                                !                by a comma or space, for sigma-2 and dz. The
-                                !                latter can be FNC1:string which is used everywhere.
-                                !                e.g. HYBRID_3D:vgrid.nc,sigma2,dz
-                                !  HYBRID_MAP:string - read from a file. The string specifies
-                                !                the filename and three variable names, separated
-                                !                by a comma or space, for map, sigma-2 and dz.
-                                !                Map is a spatial index array with, maxval(map)=N,
-                                !                and the others are 2D arrays containing N profiles.
-                                !                Map typically contains integer values, but it can
-                                !                contain real values, I+w, which imply using
-                                !                the weighted sum of profiles I and I+1.
-                                !                Dz can be FNC1:string which is used everywhere.
-                                !                e.g. HYBRID_MAP:vgrid.nc,map,sigma2,dz
+DIAG_COORD_RES_Z = 3.56, 4.64, 5.06, 6.24, 6.86, 8.16, 9.06, 10.64, 11.9, 14.02, 15.96, 19.04, 22.3, 27.26, 33.12, 41.86, 53.06, 69.4, 91.56, 123.44, 167.34, 228.88, 311.08, 417.06, 539.42, 655.52, 712.56, 251.1, 139.9 !   [m]
+                                ! The distribution of vertical resolution for the target
+                                ! grid used for Eulerian-like coordinates. For example,
+                                ! in z-coordinate mode, the parameter is a list of level
+                                ! thicknesses (in m). In sigma-coordinate mode, the list
+                                ! is of non-dimensional fractions of the water column.
 
 ! === module MOM_lateral_mixing_coeffs ===
 USE_VARIABLE_MIXING = True      !   [Boolean] default = False

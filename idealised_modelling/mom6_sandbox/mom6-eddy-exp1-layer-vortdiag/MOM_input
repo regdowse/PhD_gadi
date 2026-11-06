@@ -83,8 +83,8 @@ NJGLOBAL = 100                  !
                                 ! y-direction in the physical domain. With STATIC_MEMORY_
                                 ! this is set in MOM_memory.h at compile time.
 
-NIPROC = 3
-NJPROC = 3
+NIPROC = 5
+NJPROC = 5
 
 ! === module MOM_hor_index ===
 ! Sets the horizontal array index types.
@@ -751,10 +751,12 @@ VARIABLE_WINDS = False
 SAVE_INITIAL_CONDS = True
 READ_DEPTH_LIST = True ! read/write depth list for APE calc
 
-NUM_DIAG_COORDS = 2    ! these lines to alter output to higher res
-DIAG_COORDS = "z Z ZSTAR", "rho2 RHO2 RHO"
-DIAG_COORD_DEF_Z = "FNC1:2,4000,4.5,.01"
-DIAG_COORD_DEF_RHO2 = "RFNC1:35,999.5,1028,1028.5,8.,1038.,0.0078125"
+! Diagnostic-only z-star grid; native dynamics retain ten isopycnal layers.
+! 29 cells, including all 28 requested nominal depths and 3734.55 m.
+NUM_DIAG_COORDS = 1
+DIAG_COORDS = "z Z ZSTAR"
+DIAG_COORD_DEF_Z = "PARAM"
+DIAG_COORD_RES_Z = 3.56, 4.64, 5.06, 6.24, 6.86, 8.16, 9.06, 10.64, 11.90, 14.02, 15.96, 19.04, 22.30, 27.26, 33.12, 41.86, 53.06, 69.40, 91.56, 123.44, 167.34, 228.88, 311.08, 417.06, 539.42, 655.52, 712.56, 251.10, 139.90
 
 REMAP_UV_USING_OLD_ALG = False
 MIN_THICKNESS = 1.0E-6

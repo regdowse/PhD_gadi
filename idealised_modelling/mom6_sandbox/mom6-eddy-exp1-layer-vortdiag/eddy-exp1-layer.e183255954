@@ -7,8 +7,8 @@ Suggest fix:
 Loading python3/3.11.7
   Loading requirement: intel-mkl/2023.2.0
 Currently Loaded Modulefiles:
- 1) intel-mkl/2023.2.0   3) intel-compiler/2021.10.0   5) openmpi/4.1.2  
- 2) python3/3.11.7       4) netcdf/4.9.2               6) pbs            
+ 1) intel-mkl/2023.2.0   3) intel-compiler/2021.10.0   5) pbs            
+ 2) python3/3.11.7       4) netcdf/4.9.2               6) openmpi/4.1.2  
 [WARNING] SoftFileLock(lifetime=...) uses age-based expiry and can overlap a live holder; use SoftFileLease for expiry or StrictSoftFileLock for fail-closed locking
 [WARNING] SoftFileLock(lifetime=...) uses age-based expiry and can overlap a live holder; use SoftFileLease for expiry or StrictSoftFileLock for fail-closed locking
 [WARNING] SoftFileLock(lifetime=...) uses age-based expiry and can overlap a live holder; use SoftFileLease for expiry or StrictSoftFileLock for fail-closed locking

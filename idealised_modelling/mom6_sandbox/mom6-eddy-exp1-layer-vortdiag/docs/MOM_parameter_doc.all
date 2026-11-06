@@ -614,7 +614,7 @@ SPONGE = False                  !   [Boolean] default = False
                                 ! properties of those sponges are specified via SPONGE_CONFIG.
 
 ! === module MOM_diag_mediator ===
-NUM_DIAG_COORDS = 2             ! default = 1
+NUM_DIAG_COORDS = 1             ! default = 1
                                 ! The number of diagnostic vertical coordinates to use. For each coordinate, an
                                 ! entry in DIAG_COORDS must be provided.
 DIAG_REMAPPING_USE_OM4_SUBCELLS = True !   [Boolean] default = True
@@ -630,10 +630,10 @@ USE_INDEX_DIAGNOSTIC_AXES = False !   [Boolean] default = False
                                 ! If true, use a grid index coordinate convention for diagnostic axes.
 SYMMETRIC_DOWNSAMPLE_SUMS = False !   [Boolean] default = False
                                 ! If true, use rotationally symmetric sums when downsampling diagnostics.
-DIAG_COORDS = "z Z ZSTAR", "rho2 RHO2 RHO" !
+DIAG_COORDS = "z Z ZSTAR"       ! default = "z Z ZSTAR"
                                 ! A list of string tuples associating diag_table modules to a coordinate
-                                ! definition used for diagnostics. Each string is of the form
-                                ! "MODULE_SUFFIX,PARAMETER_SUFFIX,COORDINATE_NAME".
+                                ! definition used for diagnostics. Each string is of the form "MODULE_SUFFIX
+                                ! PARAMETER_SUFFIX COORDINATE_NAME".
 DIAG_MISVAL = 1.0E+20           !   [various] default = 1.0E+20
                                 ! Set the default missing value to use for diagnostics.
 DIAG_AS_CHKSUM = False          !   [Boolean] default = False
@@ -645,7 +645,7 @@ NUM_DIAG_DOWNSAMP_LEV = 0       ! default = 0
 AVAILABLE_DIAGS_FILE = "available_diags.000000" ! default = "available_diags.000000"
                                 ! A file into which to write a list of all available ocean diagnostics that can
                                 ! be included in a diag_table.
-DIAG_COORD_DEF_Z = "FNC1:2,4000,4.5,.01" ! default = "WOA09"
+DIAG_COORD_DEF_Z = "PARAM"      ! default = "WOA09"
                                 ! Determines how to specify the coordinate resolution. Valid options are:
                                 !  PARAM       - use the vector-parameter DIAG_COORD_RES_Z
                                 !  UNIFORM[:N] - uniformly distributed
@@ -676,65 +676,12 @@ DIAG_COORD_DEF_Z = "FNC1:2,4000,4.5,.01" ! default = "WOA09"
                                 !                the weighted sum of profiles I and I+1.
                                 !                Dz can be FNC1:string which is used everywhere.
                                 !                e.g. HYBRID_MAP:vgrid.nc,map,sigma2,dz
-DIAG_COORD_INTERP_SCHEME_RHO2 = "PPM_H4" ! default = "PPM_H4"
-                                ! This sets the interpolation scheme to use to determine the new grid. These
-                                ! parameters are only relevant when REGRIDDING_COORDINATE_MODE is set to a
-                                ! function of state. Otherwise, it is not used. It can be one of the following
-                                ! schemes:
-                                !  P1M_H2     (2nd-order accurate)
-                                !  P1M_H4     (2nd-order accurate)
-                                !  P1M_IH4    (2nd-order accurate)
-                                !  PLM        (2nd-order accurate)
-                                !  PPM_CW     (3rd-order accurate)
-                                !  PPM_H4     (3rd-order accurate)
-                                !  PPM_IH4    (3rd-order accurate)
-                                !  P3M_IH4IH3 (4th-order accurate)
-                                !  P3M_IH6IH5 (4th-order accurate)
-                                !  PQM_IH4IH3 (4th-order accurate)
-                                !  PQM_IH6IH5 (5th-order accurate)
-REGRIDDING_ANSWER_DATE = 99991231 ! default = 99991231
-                                ! The vintage of the expressions and order of arithmetic to use for regridding.
-                                ! Values below 20190101 result in the use of older, less accurate expressions
-                                ! that were in use at the end of 2018.  Higher values result in the use of more
-                                ! robust and accurate forms of mathematically equivalent expressions.
-DIAG_COORD_DEF_RHO2 = "RFNC1:35,999.5,1028,1028.5,8.,1038.,0.0078125" ! default = "WOA09"
-                                ! Determines how to specify the coordinate resolution. Valid options are:
-                                !  PARAM       - use the vector-parameter DIAG_COORD_RES_RHO2
-                                !  UNIFORM[:N] - uniformly distributed
-                                !  FILE:string - read from a file. The string specifies
-                                !                the filename and variable name, separated
-                                !                by a comma or space, e.g. FILE:lev.nc,dz
-                                !                or FILE:lev.nc,interfaces=zw
-                                !  WOA09[:N]   - the WOA09 vertical grid (approximately)
-                                !  WOA09INT[:N] - layers spanned by the WOA09 depths
-                                !  WOA23INT[:N] - layers spanned by the WOA23 depths
-                                !  FNC1:string - FNC1:dz_min,H_total,power,precision
-                                !  HYBRID:string - read from a file. The string specifies
-                                !                the filename and two variable names, separated
-                                !                by a comma or space, for sigma-2 and dz.
-                                !                e.g. HYBRID:vgrid.nc,sigma2,dz
-                                !  HYBRID_3D:string - read from a file. The string specifies
-                                !                the filename and two 3D variable names, separated
-                                !                by a comma or space, for sigma-2 and dz. The
-                                !                latter can be FNC1:string which is used everywhere.
-                                !                e.g. HYBRID_3D:vgrid.nc,sigma2,dz
-                                !  HYBRID_MAP:string - read from a file. The string specifies
-                                !                the filename and three variable names, separated
-                                !                by a comma or space, for map, sigma-2 and dz.
-                                !                Map is a spatial index array with, maxval(map)=N,
-                                !                and the others are 2D arrays containing N profiles.
-                                !                Map typically contains integer values, but it can
-                                !                contain real values, I+w, which imply using
-                                !                the weighted sum of profiles I and I+1.
-                                !                Dz can be FNC1:string which is used everywhere.
-                                !                e.g. HYBRID_MAP:vgrid.nc,map,sigma2,dz
-DIAG_COORD_P_REF_RHO2 = 2.0E+07 !   [Pa] default = 2.0E+07
-                                ! The pressure that is used for calculating the diagnostic coordinate density.
-                                ! (1 Pa = 1e4 dbar, so 2e7 is commonly used.) This is only used for the RHO
-                                ! coordinate.
-DIAG_COORD_REGRID_COMPRESSIBILITY_FRACTION_RHO2 = 0.0 !   [nondim] default = 0.0
-                                ! When interpolating potential density profiles we can add some artificial
-                                ! compressibility solely to make homogeneous regions appear stratified.
+DIAG_COORD_RES_Z = 3.56, 4.64, 5.06, 6.24, 6.86, 8.16, 9.06, 10.64, 11.9, 14.02, 15.96, 19.04, 22.3, 27.26, 33.12, 41.86, 53.06, 69.4, 91.56, 123.44, 167.34, 228.88, 311.08, 417.06, 539.42, 655.52, 712.56, 251.1, 139.9 !   [m]
+                                ! The distribution of vertical resolution for the target
+                                ! grid used for Eulerian-like coordinates. For example,
+                                ! in z-coordinate mode, the parameter is a list of level
+                                ! thicknesses (in m). In sigma-coordinate mode, the list
+                                ! is of non-dimensional fractions of the water column.
 
 ! === module MOM_MEKE ===
 USE_MEKE = False                !   [Boolean] default = False
@@ -1516,9 +1463,6 @@ MLD_EN_VALS = 25.0, 2500.0, 2.5E+05 !   [J/m2] default = 25.0, 2500.0, 2.5E+05
 BMLD_EN_VALS = 25.0, 2500.0, 2.5E+05 !   [J/m2] default = 25.0, 2500.0, 2.5E+05
                                 ! The energy values used to compute Bottom MLDs.  If not set (or all set to 0.),
                                 ! the default will overwrite to 25., 2500., 250000.
-HREF_FOR_MLD = 0.0              !   [m] default = 0.0
-                                ! Reference depth used to calculate the potential density used to find the mixed
-                                ! layer depth based on a delta rho = 0.03 kg/m3.
 DIAG_MLD_DENSITY_DIFF = 0.1     !   [kg/m3] default = 0.1
                                 ! The density difference used to determine a diagnostic mixed layer depth,
                                 ! MLD_user, following the definition of Levitus 1982. The MLD is the depth at

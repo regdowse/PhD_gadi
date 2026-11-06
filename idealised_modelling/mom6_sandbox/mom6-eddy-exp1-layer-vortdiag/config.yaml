@@ -1,15 +1,15 @@
 # Exp1: fresh-start segment length is set in input.nml (currently one month).
-ncpus: 9
+ncpus: 25
 walltime: 00:30:00
-jobname: eddy-exp1-layer
+jobname: eddy-exp1-layer-vortdiag
 project: fu5
 queue: normal
 
 model: mom6
 exe: /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-ninja-nci/ocean_only_symmetric/MOM6
-input: /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-eddy-exp1-layer/input
+input: /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-eddy-exp1-layer-vortdiag/input
 laboratory: /scratch/fu5/rd7475/tmp/mom6-payu
-experiment_prefix: gaussian-eddy-exp-H500_BETA_2E11_CE_layer
+experiment_prefix: gaussian-eddy-exp-H500_BETA_2E11_CE_layer-vortdiag
 
 modules:
     load:

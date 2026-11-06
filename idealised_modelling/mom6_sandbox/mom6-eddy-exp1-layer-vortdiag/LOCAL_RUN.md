@@ -4,7 +4,7 @@ This directory is independent of `mom6-idealised-eddy`. Its own metadata identif
 its current archive; its notebooks use only paths under this experiment.
 
 ```bash
-cd /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-eddy-exp1-layer
+cd /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-eddy-exp1-layer-vortdiag
 module purge
 source env.sh
 python initialisation/generate_initial_state.py
@@ -13,9 +13,9 @@ payu run --new-uuid --initial 0
 
 Use a fresh UUID for independent tests. Plain `payu run` intentionally continues
 from this experiment's latest restart. Existing source-experiment archives are
-preserved; copied bookkeeping is retained as `copied_archive/` and `copied_work`.
+preserved; copied output links and bookkeeping have been removed.
 
-The current duration is one model month, using 100 CPUs and 30 minutes walltime.
+The current duration is one model month, using 9 CPUs and 30 minutes walltime.
 `experiment_prefix` in config.yaml determines the archive prefix. The analysis
 notebook reads this directory's metadata automatically; restart its kernel and
 Run All after output is archived. Daily depth-level thetao and volcello are
@@ -96,3 +96,17 @@ remains file-based (the current wind fields are also zero). Introducing
 nonzero surface heat/freshwater forcing requires a separate compatible
 surface-layer/forcing design. The generator checks this configuration before
 writing initial conditions. A new compiled-model test is still required.
+
+## Vorticity-diagnostic experiment copy
+
+This copy uses its own `input/` directory and the experiment prefix
+`gaussian-eddy-exp-H500_BETA_2E11_CE_layer-vortdiag`. Copied run identity,
+logs, manifests, validation report, animation exports and notebook outputs
+have been cleared. Payu will generate a fresh identity for the next run.
+No diagnostic settings have been changed as part of this cleanup.
+
+## Vorticity diagnostic output
+
+See [DIAGNOSTICS.md](DIAGNOSTICS.md) for the current daily native-layer and
+29-cell online z-star output specification. This supersedes older output
+descriptions above. Runtime output checks remain deferred.

@@ -1,7 +1,7 @@
 # Layer vorticity diagnostic output
 
 All evolving fields are daily means, written as float32. Model dynamics and
-initial conditions are unchanged. No model source changes are required.
+initial conditions use the 2500 m pivot revision with BETA=2.66e-11. No model source changes are required.
 
 - `ocean_layer_daily.nc`: native ten-layer state, RV, layer PV, thickness,
   interface elevations, cell volume, SSH and thickness tendency.
@@ -52,10 +52,10 @@ Their depth sampling is deferred to offline analysis.
 | 23 | 973.36 | 1128.90 | 1284.44 |
 | 24 | 1284.44 | 1492.97 | 1701.50 |
 | 25 | 1701.50 | 1971.21 | 2240.92 |
-| 26 | 2240.92 | 2568.68 | 2896.44 |
-| 27 | 2896.44 | 3252.72 | 3609.00 |
-| 28 | 3609.00 | 3734.55 | 3860.10 |
-| 29 | 3860.10 | 3930.05 | 4000.00 |
+| 26 | 2240.92 | 2298.31 | 2355.69 |
+| 27 | 2355.69 | 2413.08 | 2470.46 |
+| 28 | 2470.46 | 2527.85 | 2585.23 |
+| 29 | 2585.23 | 2642.62 | 2700.00 |
 
 ## Budget interpretation
 
@@ -80,8 +80,8 @@ are in m s^-2 and their horizontal curls in s^-2.
 Offline curls, PV/RV sampling, residuals and optional Ertel PV are not computed
 by these configuration edits. Native curl and curl after depth remapping are
 different operations. Daily-mean products are accepted approximations.
-Runtime diagnostic availability and generated NetCDF coordinates, masks and
-averaging remain to be checked later; no integration was launched here.
+The previous 4000 m run passed diagnostic checks. The 2500 m revision needs
+a fresh integration before its runtime diagnostics can be checked.
 
 ## Running the native-layer budget analysis
 
@@ -104,5 +104,3 @@ individual signed contributions for comparing cancellation.
 
 `build_versions.json` is required by the initialization generator and must be
 retained. It has been restored from the parent experiment using the same build.
-The initial launch used the preserved initial-state NetCDF files after the
-regeneration command failed on that missing metadata.

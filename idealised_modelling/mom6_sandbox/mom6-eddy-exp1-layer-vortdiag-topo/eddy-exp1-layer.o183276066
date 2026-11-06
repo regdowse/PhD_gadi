@@ -1,0 +1,41 @@
+laboratory path:  /scratch/fu5/rd7475/tmp/mom6-payu
+binary path:  /scratch/fu5/rd7475/tmp/mom6-payu/bin
+input path:  /scratch/fu5/rd7475/tmp/mom6-payu/input
+work path:  /scratch/fu5/rd7475/tmp/mom6-payu/work
+archive path:  /scratch/fu5/rd7475/tmp/mom6-payu/archive
+Found experiment archive: /scratch/fu5/rd7475/tmp/mom6-payu/archive/gaussian-eddy-exp-H500_BETA_2p66E11_CE_layer-vortdiag-topo-D2500-13b0b1f8
+No prior restart path provided. Skip adding parent branch time to metadata.
+nruns: 1 nruns_per_submit: 1 subrun: 1
+payu: work path already exists.
+      Sweeping as --force option is True.
+Moving log eddy-exp1-layer.e183272148
+Moving log eddy-exp1-layer.o183272148
+Removing work path /scratch/fu5/rd7475/tmp/mom6-payu/work/gaussian-eddy-exp-H500_BETA_2p66E11_CE_layer-vortdiag-topo-D2500-13b0b1f8
+Removing symlink /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-eddy-exp1-layer-vortdiag-topo/work
+payu: Found modules in /opt/Modules/v4.3.0
+Loading input manifest: manifests/input.yaml
+Loading restart manifest: manifests/restart.yaml
+Loading exe manifest: manifests/exe.yaml
+Setting up mom6
+Checking exe, input and restart manifests
+Writing manifests/input.yaml
+Writing manifests/restart.yaml
+mod intel-mkl/2023.2.0
+mod python3/3.11.7
+mod intel-compiler/2021.10.0
+mod netcdf/4.9.2
+mpirun  -wdir /scratch/fu5/rd7475/tmp/mom6-payu/work/gaussian-eddy-exp-H500_BETA_2p66E11_CE_layer-vortdiag-topo-D2500-13b0b1f8 -np 25  /scratch/fu5/rd7475/tmp/mom6-payu/work/gaussian-eddy-exp-H500_BETA_2p66E11_CE_layer-vortdiag-topo-D2500-13b0b1f8/MOM6
+Provenance information is written to restarts: /scratch/fu5/rd7475/tmp/mom6-payu/archive/gaussian-eddy-exp-H500_BETA_2p66E11_CE_layer-vortdiag-topo-D2500-13b0b1f8/restart000/restart_metadata.yaml
+payu: Found modules in /opt/Modules/v4.3.0
+
+======================================================================================
+                  Resource Usage on 2026-11-06 14:46:17:
+   Job Id:             183276066.gadi-pbs
+   Project:            fu5
+   Exit Status:        0
+   Service Units:      4.12
+   NCPUs Requested:    25                  CPU Time Used: 01:59:06        
+   Memory Requested:   100.0GB               Memory Used: 8.99GB          
+   Walltime Requested: 00:30:00            Walltime Used: 00:04:57        
+   JobFS Requested:    100.0MB                JobFS Used: 8.1MB           
+======================================================================================

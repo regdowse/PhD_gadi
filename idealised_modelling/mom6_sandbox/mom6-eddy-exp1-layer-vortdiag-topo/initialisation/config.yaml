@@ -15,10 +15,10 @@ eddy:
   vertical_profile: exponential  # smooth at every depth; no finite cutoff
   e_folding_depth_m: 500.0       # user setting: speed is surface speed / e at this depth
 background:
-  # Five 100 m layers above 500 m; five 700 m layers below.
+  # Five 100 m layers above 500 m; five 400 m layers below.
   # Temperatures are fixed on material layers, including within the eddy.
   profile: isopycnal
-  interface_depths_m: [0, 100, 200, 300, 400, 500, 1200, 1900, 2600, 3300, 4000]
+  interface_depths_m: [0, 100, 200, 300, 400, 500, 900, 1300, 1700, 2100, 2500]
   layer_temperatures_degC: [24, 22, 20, 18, 16, 14, 12, 10, 8, 6]
   salinity_top_ppt: 35.0
   salinity_range_ppt: 0.0

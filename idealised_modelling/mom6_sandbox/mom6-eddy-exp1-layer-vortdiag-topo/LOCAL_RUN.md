@@ -30,7 +30,7 @@ initialisation/validation.json before interpreting the run.
 `initialisation/config.yaml` sets ten fixed layer temperatures (24, 22, 20,
 18, 16, 14, 12, 10, 8, 6 °C) and eleven reference interface depths. The first
 five layers span 0–500 m in 100 m increments; the remaining five span
-500–4000 m in 700 m increments. Edit `layer_temperatures_degC` to set the
+500–2500 m in 400 m increments. Edit `layer_temperatures_degC` to set the
 water masses and `interface_depths_m` to set their resting depths. Stable
 constant-salinity layers require temperatures decreasing downward.
 
@@ -101,7 +101,7 @@ writing initial conditions. A new compiled-model test is still required.
 ## Vorticity-diagnostic topo experiment copy
 
 This copy uses its own `input/` directory and the experiment prefix
-`gaussian-eddy-exp-H500_BETA_2E11_CE_layer-vortdiag-topo`. Copied run identity,
+`gaussian-eddy-exp-H500_BETA_2p66E11_CE_layer-vortdiag-topo-D2500`. Copied run identity,
 logs, manifests, build versions and budget results are retained in `copied_run/`.
 Notebook outputs have been cleared. This copy has a fresh Payu UUID and archive
 name; run the new experiment before analysing it.
@@ -113,25 +113,26 @@ See [DIAGNOSTICS.md](DIAGNOSTICS.md) for the current daily native-layer and
 29-cell online z-star output specification. This supersedes older output
 descriptions above. Runtime output checks remain deferred.
 
-## North–south bottom slope
+## North–south bottom slope: current 2500 m revision
 
-The interior water depth is `4000 - 8e-4 * (y - 250000)` metres:
-north is shallower and south is deeper, pivoting at the basin centre.
-`input/generate_topography.py` is authoritative and is also called by the input
-notebook. The original boundary shelves within 45 km of every wall are unchanged.
-A quintic smoothstep blends the anomaly in over the next 25 km; the exact plane
-applies at least 70 km from all walls. The blend necessarily introduces local
-curvature and east–west gradients near the walls.
+The interior depth is `2500 - 8e-4 * (y - 250000)` metres, north shallow and
+south deep. `BETA=2.66e-11`. The coastline, 45 km shelf width and 25 km quintic
+slope blend are retained. Shelf depths are reshaped to meet 2500 m without a
+4000 m surrounding trough. Maximum water depth is approximately 2644.75 m;
+`MAXIMUM_DEPTH=2700` allows the deeper side without clipping.
 
-`MAXIMUM_DEPTH=4200` prevents clipping the deeper half. The background reference
-interfaces remain 0–4000 m, retaining the original interior density structure;
-the bottom layer accommodates the local seabed. Initialisation reads the new
-bathymetry while checking the saved horizontal metrics and unchanged wet mask.
-Regenerate topography and initial conditions in the order shown above. The
-29-cell online z-star diagnostic grid has not been changed; runtime output and
-remapping must be checked after the first model run.
+The ten reference layers have interfaces 0, 100, 200, 300, 400, 500, 900, 1300,
+1700, 2100, 2500 m. Layer temperatures remain 24 to 6 °C in 2 °C increments.
+The upper 25 diagnostic cells are retained. Four 114.77 m cells complete the
+29-cell z-star diagnostic grid to a nominal depth of 2700 m. Actual interfaces
+follow local bathymetry and SSH; vanished cells are masked in diagnostics.
 
-## First slope integration
+Regenerate topography before initial conditions. The revised bathymetry and
+beta require a fresh-start integration, not continuation of the 4000 m restart.
+Previous executed notebooks, configuration and budget results are preserved in
+`copied_run/pivot4000_beta2e11/`; the original archive remains intact.
+
+## Previous 4000 m slope integration
 
 PBS job `183272148.gadi-pbs` completed with exit status 0. Payu generated
 identity `gaussian-eddy-exp-H500_BETA_2E11_CE_layer-vortdiag-topo-55237593`;
@@ -139,3 +140,6 @@ identity `gaussian-eddy-exp-H500_BETA_2E11_CE_layer-vortdiag-topo-55237593`;
 this identity from metadata and checks the archived bathymetry against the
 requested slope. Temperature sections use actual diagnostic interfaces;
 velocity-animation sections retain nominal z* labels.
+
+The 2500 m revision is staged under `gaussian-eddy-exp-H500_BETA_2p66E11_CE_layer-vortdiag-topo-D2500-13b0b1f8`.
+No integration has been submitted for this revision.

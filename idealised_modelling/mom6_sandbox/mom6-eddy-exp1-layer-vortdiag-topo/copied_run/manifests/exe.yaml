@@ -1,0 +1,8 @@
+format: yamanifest
+version: 1.0
+---
+work/MOM6:
+  fullpath: /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-ninja-nci/ocean_only_symmetric/MOM6
+  hashes:
+    binhash: 732183daf7cde92611f689c474b5ab9a
+    md5: c43d2409b3bc9a59354e04956a40b9f0

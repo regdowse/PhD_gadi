@@ -1,0 +1,33 @@
+laboratory path:  /scratch/fu5/rd7475/tmp/mom6-payu
+binary path:  /scratch/fu5/rd7475/tmp/mom6-payu/bin
+input path:  /scratch/fu5/rd7475/tmp/mom6-payu/input
+work path:  /scratch/fu5/rd7475/tmp/mom6-payu/work
+archive path:  /scratch/fu5/rd7475/tmp/mom6-payu/archive
+Found experiment archive: /scratch/fu5/rd7475/tmp/mom6-payu/archive/gaussian-eddy-exp-H500_BETA_2E11_CE_layer-vortdiag-61093f28
+No prior restart path provided. Skip adding parent branch time to metadata.
+nruns: 1 nruns_per_submit: 1 subrun: 1
+payu: Found modules in /opt/Modules/v4.3.0
+Setting up mom6
+Checking exe, input and restart manifests
+Writing manifests/input.yaml
+Writing manifests/restart.yaml
+Writing manifests/exe.yaml
+mod intel-mkl/2023.2.0
+mod python3/3.11.7
+mod intel-compiler/2021.10.0
+mod netcdf/4.9.2
+mpirun  -wdir /scratch/fu5/rd7475/tmp/mom6-payu/work/gaussian-eddy-exp-H500_BETA_2E11_CE_layer-vortdiag-61093f28 -np 25  /scratch/fu5/rd7475/tmp/mom6-payu/work/gaussian-eddy-exp-H500_BETA_2E11_CE_layer-vortdiag-61093f28/MOM6
+Provenance information is written to restarts: /scratch/fu5/rd7475/tmp/mom6-payu/archive/gaussian-eddy-exp-H500_BETA_2E11_CE_layer-vortdiag-61093f28/restart000/restart_metadata.yaml
+payu: Found modules in /opt/Modules/v4.3.0
+
+======================================================================================
+                  Resource Usage on 2026-11-06 11:56:49:
+   Job Id:             183255954.gadi-pbs
+   Project:            fu5
+   Exit Status:        0
+   Service Units:      4.17
+   NCPUs Requested:    25                  CPU Time Used: 02:00:07        
+   Memory Requested:   100.0GB               Memory Used: 9.15GB          
+   Walltime Requested: 00:30:00            Walltime Used: 00:05:00        
+   JobFS Requested:    100.0MB                JobFS Used: 8.1MB           
+======================================================================================

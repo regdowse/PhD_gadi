@@ -1,4 +1,4 @@
-"""Geometry checks for the 2500 m north-shallow, south-deep revision."""
+"""Geometry checks for the 2500 m south-shallow, north-deep revision."""
 import importlib.util
 from pathlib import Path
 import unittest
@@ -17,8 +17,8 @@ class ShallowSlopeTests(unittest.TestCase):
         h = ds.topog.values
         # Basin centre falls between four tracer cells.
         self.assertAlmostEqual(float(h[49:51,49:51].mean()), 2500)
-        self.assertAlmostEqual(float(h[39:41,49:51].mean()-h[59:61,49:51].mean()), 80)
-        self.assertTrue(np.all(np.diff(h[14:86,50]) < 0))
+        self.assertAlmostEqual(float(h[39:41,49:51].mean()-h[59:61,49:51].mean()), -80)
+        self.assertTrue(np.all(np.diff(h[14:86,50]) > 0))
         self.assertLess(float(h.max()), 2700)
         self.assertTrue(np.isfinite(h).all())
 

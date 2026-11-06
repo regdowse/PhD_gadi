@@ -115,8 +115,8 @@ descriptions above. Runtime output checks remain deferred.
 
 ## North–south bottom slope: current 2500 m revision
 
-The interior depth is `2500 - 8e-4 * (y - 250000)` metres, north shallow and
-south deep. `BETA=2.66e-11`. The coastline, 45 km shelf width and 25 km quintic
+The interior depth is `2500 + 8e-4 * (y - 250000)` metres, south shallow and
+north deep. `BETA=2.66e-11`. The coastline, 45 km shelf width and 25 km quintic
 slope blend are retained. Shelf depths are reshaped to meet 2500 m without a
 4000 m surrounding trough. Maximum water depth is approximately 2644.75 m;
 `MAXIMUM_DEPTH=2700` allows the deeper side without clipping.
@@ -143,3 +143,14 @@ velocity-animation sections retain nominal z* labels.
 
 The 2500 m revision is staged under `gaussian-eddy-exp-H500_BETA_2p66E11_CE_layer-vortdiag-topo-D2500-13b0b1f8`.
 No integration has been submitted for this revision.
+
+## Reversed slope
+
+South is now shallower and north deeper, with interior `dH/dy=+8e-4`.
+The 2500 m centre pivot, `BETA=2.66e-11`, native layer interfaces and shelf
+blend widths are unchanged. Previous north-shallow inputs and notebook state
+are preserved in `copied_run/pivot2500_north_shallow_beta2p66e11/`.
+The previous archive remains intact; the reversed slope uses a fresh UUID.
+
+Reversed-slope job `183278193.gadi-pbs` was submitted as a one-month fresh start
+under identity `gaussian-eddy-exp-H500_BETA_2p66E11_CE_layer-vortdiag-topo-D2500-south-shallow-af6410db`.

@@ -9,18 +9,18 @@ work/INPUT/forcing.nc:
 work/INPUT/initial_state.nc:
   fullpath: /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-eddy-exp1-layer-vortdiag/input/initial_state.nc
   hashes:
-    binhash: 018a3492d7dd006ead6e056a2c406fdb
-    md5: b132aa6ded1e663a3c69731f8cccfa1f
+    binhash: 0ca32d072711994ba532175b7b115f1c
+    md5: a1e3b65492e362b90da5078037edcb08
 work/INPUT/layer_coord.nc:
   fullpath: /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-eddy-exp1-layer-vortdiag/input/layer_coord.nc
   hashes:
-    binhash: 17bc66a8eeffb35085f42235f8d08c91
+    binhash: 740df602783ce7c06952873b42c7540c
     md5: 2f6fd5b72ede2aa1ba1618a09f970259
 work/INPUT/mom6-anu-tub-driver.ipynb:
   fullpath: /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-eddy-exp1-layer-vortdiag/input/mom6-anu-tub-driver.ipynb
   hashes:
-    binhash: 355040cc762d0130ffc50f1946c20509
-    md5: 51efa0742e0ce6e2f42676b3ce0ee032
+    binhash: c9f2d849131a004b305bbbf845908d91
+    md5: 1ff761b91a28572b698d55bbc26a1297
 work/INPUT/sst.nc:
   fullpath: /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-eddy-exp1-layer-vortdiag/input/sst.nc
   hashes:

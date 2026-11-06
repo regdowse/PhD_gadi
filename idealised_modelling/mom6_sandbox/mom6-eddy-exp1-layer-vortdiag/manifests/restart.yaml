@@ -1,3 +1,18 @@
 format: yamanifest
 version: 1.0
---- {}
+---
+work/INPUT/MOM.res.nc:
+  fullpath: /scratch/fu5/rd7475/tmp/mom6-payu/archive/gaussian-eddy-exp-H500_BETA_2E11_CE_layer-vortdiag-61093f28/restart000/MOM.res.nc
+  hashes:
+    binhash: 1ceb8747c7f4a5c2d827931d45a0acfc
+    md5: 7b3c4eb02f01cc9500f9cd82e40772e9
+work/INPUT/ocean_solo.res:
+  fullpath: /scratch/fu5/rd7475/tmp/mom6-payu/archive/gaussian-eddy-exp-H500_BETA_2E11_CE_layer-vortdiag-61093f28/restart000/ocean_solo.res
+  hashes:
+    binhash: 3ce98c933db9abd2af74765583096996
+    md5: 8b00e5cc1cf2f1d1e607f1a5b5352bd2
+work/INPUT/restart_metadata.yaml:
+  fullpath: /scratch/fu5/rd7475/tmp/mom6-payu/archive/gaussian-eddy-exp-H500_BETA_2E11_CE_layer-vortdiag-61093f28/restart000/restart_metadata.yaml
+  hashes:
+    binhash: ad696e81d544f573d67eac7ce276fb5a
+    md5: c198ef8000df5066ea8b6f5173ef44a7

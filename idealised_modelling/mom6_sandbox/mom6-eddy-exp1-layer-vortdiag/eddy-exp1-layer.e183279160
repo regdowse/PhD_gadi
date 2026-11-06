@@ -1,0 +1,14 @@
+[WARNING] Payu expects to run from repository root to ensure metadata tracking.
+Current situation leads to an InvalidGitRepositoryError.
+Suggest fix:
+    Move the control directory to the a separate directory with its own git repository
+
+[WARNING] SoftFileLock(lifetime=...) uses age-based expiry and can overlap a live holder; use SoftFileLease for expiry or StrictSoftFileLock for fail-closed locking
+Loading python3/3.11.7
+  Loading requirement: intel-mkl/2023.2.0
+Currently Loaded Modulefiles:
+ 1) intel-mkl/2023.2.0   3) intel-compiler/2021.10.0   5) pbs            
+ 2) python3/3.11.7       4) netcdf/4.9.2               6) openmpi/4.1.2  
+[WARNING] SoftFileLock(lifetime=...) uses age-based expiry and can overlap a live holder; use SoftFileLease for expiry or StrictSoftFileLock for fail-closed locking
+[WARNING] SoftFileLock(lifetime=...) uses age-based expiry and can overlap a live holder; use SoftFileLease for expiry or StrictSoftFileLock for fail-closed locking
+[WARNING] SoftFileLock(lifetime=...) uses age-based expiry and can overlap a live holder; use SoftFileLease for expiry or StrictSoftFileLock for fail-closed locking

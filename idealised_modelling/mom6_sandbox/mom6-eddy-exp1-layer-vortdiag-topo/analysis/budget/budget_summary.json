@@ -1,0 +1,30 @@
+{
+  "source_run": "/scratch/fu5/rd7475/tmp/mom6-payu/archive/gaussian-eddy-exp-H500_BETA_2E11_CE_layer-vortdiag-topo-55237593/output000",
+  "days": 31,
+  "layers": 10,
+  "valid_fraction": 0.8604058425644545,
+  "independent_terms": [
+    "coriolis_advection",
+    "pressure_force",
+    "barotropic_correction",
+    "horizontal_friction",
+    "vertical_friction",
+    "diapycnal_exchange"
+  ],
+  "rms_s_2": {
+    "coriolis_advection": 3.8537358473318395e-13,
+    "relative_vorticity_acceleration": 2.2081089377511156e-13,
+    "kinetic_energy_gradient": 3.378675982402681e-19,
+    "pressure_force": 1.9498788041301675e-17,
+    "barotropic_correction": 2.0342195542614415e-17,
+    "horizontal_friction": 1.5976580937869206e-13,
+    "vertical_friction": 1.2999882510138474e-13,
+    "diapycnal_exchange": 4.1199151102590955e-16,
+    "net_tendency": 3.6746393032081776e-13,
+    "sum_contributions": 3.6746393582584903e-13,
+    "residual": 2.7484504512478406e-17,
+    "planetary_acceleration": 2.648406909672461e-13
+  },
+  "RV_velocity_rms_difference_s_1": 4.555972322015842e-11,
+  "caution": "Residual is reported, not assigned to a physical process. Thin layers and boundary corners excluded."
+}

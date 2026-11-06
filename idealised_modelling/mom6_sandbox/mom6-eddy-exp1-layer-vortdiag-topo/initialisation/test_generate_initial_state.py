@@ -82,6 +82,18 @@ class IsopycnalTests(unittest.TestCase):
         np.testing.assert_allclose(eta[-1], -depth)
         self.assertTrue(np.all(eta[:-1]-eta[1:] >= 1e-6))
 
+    def test_sloping_bottom_preserves_interior_interfaces(self):
+        zi, temperatures = layer_profile(self.bg, 10, 4200)
+        depth = np.array([[3850., 4000., 4150.]])
+        eta, ssh, _ = isopycnal_geometry(
+            depth, np.zeros_like(depth), zi, temperatures,
+            -1e-4, 9.8, .2/1035, 500, 1e-6)
+        np.testing.assert_allclose(eta[-1], -depth)
+        np.testing.assert_allclose((eta[:-1]-eta[1:]).sum(axis=0), depth+ssh)
+        np.testing.assert_allclose(eta[1:-1], np.broadcast_to(-zi[1:-1, None, None], eta[1:-1].shape))
+        with self.assertRaises(ValueError):
+            layer_profile(self.bg, 10, 3900)
+
     def test_crossing_interfaces_rejected(self):
         zi, temperatures = layer_profile(self.bg, 10, 4000)
         with self.assertRaisesRegex(ValueError, 'interfaces cross'):

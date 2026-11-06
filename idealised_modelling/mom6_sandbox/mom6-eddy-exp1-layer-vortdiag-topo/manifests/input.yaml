@@ -1,0 +1,48 @@
+format: yamanifest
+version: 1.0
+---
+work/INPUT/__pycache__/generate_topography.cpython-311.pyc:
+  fullpath: /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-eddy-exp1-layer-vortdiag-topo/input/__pycache__/generate_topography.cpython-311.pyc
+  hashes:
+    binhash: e6fb29e7e77ff164e0ef66dd8652de1c
+    md5: c9c285a6d798f2e78e80b8d5c400ca55
+work/INPUT/forcing.nc:
+  fullpath: /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-eddy-exp1-layer-vortdiag-topo/input/forcing.nc
+  hashes:
+    binhash: 557b8db4587336d6fa70b90d03785656
+    md5: 76cfb0570ce293dd8723439830b3caf4
+work/INPUT/generate_topography.py:
+  fullpath: /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-eddy-exp1-layer-vortdiag-topo/input/generate_topography.py
+  hashes:
+    binhash: 00cfddf463ae05729db67d4666644d5f
+    md5: 38db669d063f2041a1570e2e0b2c427e
+work/INPUT/initial_state.nc:
+  fullpath: /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-eddy-exp1-layer-vortdiag-topo/input/initial_state.nc
+  hashes:
+    binhash: 05d50c2fc16b8f4fef0374a64ea1f539
+    md5: 71c510d44d2738e5a9cb7bcddf09dd3d
+work/INPUT/layer_coord.nc:
+  fullpath: /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-eddy-exp1-layer-vortdiag-topo/input/layer_coord.nc
+  hashes:
+    binhash: 8fb1926326cc5c2f5ec5295f69f68f93
+    md5: 2f6fd5b72ede2aa1ba1618a09f970259
+work/INPUT/mom6-anu-tub-driver.ipynb:
+  fullpath: /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-eddy-exp1-layer-vortdiag-topo/input/mom6-anu-tub-driver.ipynb
+  hashes:
+    binhash: f2cd73648a1765357435e11f9e1d8dbc
+    md5: 05923a368145404d9410c4365a2b4eee
+work/INPUT/sst.nc:
+  fullpath: /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-eddy-exp1-layer-vortdiag-topo/input/sst.nc
+  hashes:
+    binhash: 208fca9df392858088e46f4a9fa4caad
+    md5: 24094cea29d56529137ccdcd71e56f04
+work/INPUT/topog.nc:
+  fullpath: /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-eddy-exp1-layer-vortdiag-topo/input/topog.nc
+  hashes:
+    binhash: cd9a6ad8169b4b9389fd6c43d2567a73
+    md5: ba955eafb5d572ab70f2eb141207491c
+work/INPUT/topography_preview.png:
+  fullpath: /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-eddy-exp1-layer-vortdiag-topo/input/topography_preview.png
+  hashes:
+    binhash: 5d5b66eed13cb8f20089261aeb67de8e
+    md5: 6d53aa9b2914a24eeab63306cdd4b700

@@ -7,6 +7,7 @@ its current archive; its notebooks use only paths under this experiment.
 cd /g/data/fu5/users/rd7475/github/phd/idealised_modelling/mom6_sandbox/mom6-eddy-exp1-layer-vortdiag-topo
 module purge
 source env.sh
+python input/generate_topography.py
 python initialisation/generate_initial_state.py
 payu run --new-uuid --initial 0
 ```
@@ -15,7 +16,7 @@ Use a fresh UUID for independent tests. Plain `payu run` intentionally continues
 from this experiment's latest restart. Existing source-experiment archives are
 preserved; copied output links and bookkeeping have been removed.
 
-The current duration is one model month, using 9 CPUs and 30 minutes walltime.
+The current duration is one model month, using 25 CPUs and 30 minutes walltime.
 `experiment_prefix` in config.yaml determines the archive prefix. The analysis
 notebook reads this directory's metadata automatically; restart its kernel and
 Run All after output is archived. Daily depth-level thetao and volcello are
@@ -111,3 +112,30 @@ No diagnostic settings have been changed as part of this cleanup.
 See [DIAGNOSTICS.md](DIAGNOSTICS.md) for the current daily native-layer and
 29-cell online z-star output specification. This supersedes older output
 descriptions above. Runtime output checks remain deferred.
+
+## North–south bottom slope
+
+The interior water depth is `4000 - 8e-4 * (y - 250000)` metres:
+north is shallower and south is deeper, pivoting at the basin centre.
+`input/generate_topography.py` is authoritative and is also called by the input
+notebook. The original boundary shelves within 45 km of every wall are unchanged.
+A quintic smoothstep blends the anomaly in over the next 25 km; the exact plane
+applies at least 70 km from all walls. The blend necessarily introduces local
+curvature and east–west gradients near the walls.
+
+`MAXIMUM_DEPTH=4200` prevents clipping the deeper half. The background reference
+interfaces remain 0–4000 m, retaining the original interior density structure;
+the bottom layer accommodates the local seabed. Initialisation reads the new
+bathymetry while checking the saved horizontal metrics and unchanged wet mask.
+Regenerate topography and initial conditions in the order shown above. The
+29-cell online z-star diagnostic grid has not been changed; runtime output and
+remapping must be checked after the first model run.
+
+## First slope integration
+
+PBS job `183272148.gadi-pbs` completed with exit status 0. Payu generated
+identity `gaussian-eddy-exp-H500_BETA_2E11_CE_layer-vortdiag-topo-55237593`;
+`output000` contains the initial 31-day month. The analysis notebook selects
+this identity from metadata and checks the archived bathymetry against the
+requested slope. Temperature sections use actual diagnostic interfaces;
+velocity-animation sections retain nominal z* labels.

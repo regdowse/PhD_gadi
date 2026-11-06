@@ -63,8 +63,8 @@ def layer_profile(background, nk, maximum_depth):
             'Provide NK temperatures and NK+1 interface depths.')
     require(np.all(np.isfinite(zi)) and np.all(np.isfinite(temperatures)),
             'Layer depths and temperatures must be finite.')
-    require(zi[0] == 0 and np.all(np.diff(zi) > 0) and np.isclose(zi[-1], maximum_depth),
-            'Interfaces must increase from zero to MAXIMUM_DEPTH.')
+    require(zi[0] == 0 and np.all(np.diff(zi) > 0) and zi[-1] <= maximum_depth,
+            'Reference interfaces must increase from zero and not exceed MAXIMUM_DEPTH.')
     require(np.all(np.diff(temperatures) < 0),
             'Isopycnal temperatures must strictly decrease with depth.')
     return zi, temperatures
@@ -140,7 +140,7 @@ def load_model(cfg):
             'Saved horizontal grid does not match current model sizes.')
     require(len(zi) == nk + 1 and zi[0] == 0 and np.all(np.diff(zi) > 0),
             'Reference interfaces must increase from zero and match NK.')
-    require(np.isclose(zi[-1], params['MAXIMUM_DEPTH']), 'Reference bottom depth has changed.')
+    require(zi[-1] <= params['MAXIMUM_DEPTH'], 'Reference bottom exceeds model depth limit.')
     # Guard against a stale vertical output after changes to the ALE definition.
     recorded = read_parameters(paths['vertical_grid'].parent / 'MOM_parameter_doc.all')
     for key in ['ALE_COORDINATE_CONFIG', 'REGRIDDING_COORDINATE_MODE']:
@@ -154,7 +154,14 @@ def load_model(cfg):
         require(grid[key].attrs.get('units') in ('m', 'meter', 'meters'), 'Saved grid is not in metres.')
     np.testing.assert_allclose(tx, grid.xh)
     np.testing.assert_allclose(ty, grid.yh)
-    np.testing.assert_allclose(topog, grid.deptho, atol=1e-3, rtol=1e-7)
+    # The reference file supplies horizontal metrics; bathymetry is experiment-local.
+    require(topog.shape == grid.deptho.shape and np.all(np.isfinite(topog)),
+            'Topography must be finite and match the horizontal grid.')
+    require(np.all(topog >= 0) and np.max(topog) <= params['MAXIMUM_DEPTH'],
+            'Topography must lie between zero and MAXIMUM_DEPTH.')
+    require(np.array_equal(topog > 0, grid.wet.values > 0),
+            'Topography changes the reference wet mask; regenerate horizontal geometry.')
+    grid['deptho'] = (grid.deptho.dims, topog.copy(), dict(grid.deptho.attrs))
     np.testing.assert_allclose(grid.dxt, params['LENLON']/nx)
     np.testing.assert_allclose(grid.dyt, params['LENLAT']/ny)
     f_expected = params['F_0'] + params['BETA'] * (grid.yq.values - params['BETA_LAT_REF'])
